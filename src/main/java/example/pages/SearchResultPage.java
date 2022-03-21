@@ -1,4 +1,4 @@
-package pk.tools.examples.pages;
+package example.pages;
 
 import lombok.Getter;
 import org.openqa.selenium.By;

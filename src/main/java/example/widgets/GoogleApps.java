@@ -1,4 +1,4 @@
-package pk.tools.examples.widgets;
+package example.widgets;
 
 import org.openqa.selenium.By;
 import pk.tools.AbstractWidget;

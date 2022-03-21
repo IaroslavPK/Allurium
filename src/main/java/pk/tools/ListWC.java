@@ -24,8 +24,8 @@ import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Selenide.$$;
 
 /**
- * Universal (pk.tools.examples.widgets') tool to work with lists of web components like table rows, cards, lists of complex
- * elements/pk.tools.examples.widgets etc.
+ * Universal (example.widgets') tool to work with lists of web components like table rows, cards, lists of complex
+ * elements/example.widgets etc.
  * Build on basic selenide class ElementCollection to make it strongly typed.
  * To present any web entity as item list need to implement interface ListComponent and describe method "get()"
  * which takes "id" as argument and using it to find element in collection.

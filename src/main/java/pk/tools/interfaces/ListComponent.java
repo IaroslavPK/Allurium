@@ -1,7 +1,7 @@
 package pk.tools.interfaces;
 
 /**
- * Web components or any composed pk.tools.examples.widgets with this interface implemented
+ * Web components or any composed example.widgets with this interface implemented
  * can be collected to Collection in <ListWC>
  *
  * example of using:

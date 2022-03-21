@@ -1,11 +1,11 @@
-package pk.tools.examples.pages;
+package example.pages;
 
 import lombok.Getter;
 import org.openqa.selenium.By;
 import pk.tools.annotations.Name;
 import pk.tools.annotations.PageObject;
 import pk.tools.inputs.InputField;
-import pk.tools.examples.widgets.SubmitCookiesPopup;
+import example.widgets.SubmitCookiesPopup;
 
 @PageObject(description = "Google search")
 @Getter

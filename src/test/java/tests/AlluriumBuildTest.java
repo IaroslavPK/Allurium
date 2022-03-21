@@ -2,8 +2,8 @@ package tests;
 
 import org.testng.annotations.Test;
 import pk.tools.UiSteps;
-import pk.tools.examples.pages.GoogleSearchPage;
-import pk.tools.examples.pages.SearchResultPage;
+import example.pages.GoogleSearchPage;
+import example.pages.SearchResultPage;
 
 
 public class AlluriumBuildTest extends TestBase {
