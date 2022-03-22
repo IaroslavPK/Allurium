@@ -33,17 +33,17 @@ import static com.codeborne.selenide.Selenide.$;
 @Slf4j
 public class UiSteps {
 
-    @Step("Ожидаем в течение [{seconds}] секунд")
+    @Step("Waiting [{seconds}] seconds")
     public static void waiting(long seconds) {
         Selenide.sleep(seconds*1000);
     }
 
-    @Step("Ожидаем [{description}] в течение [{sec}] секунд")
+    @Step("Waiting [{description}] during [{sec}] секунд")
     public static void waiting(long sec, String description) {
         waiting(sec);
     }
 
-    @Step("Нажимаем кнопку - стрелка вверх")
+    @Step("Pressing button - Arrow Top")
     public static void clickUp() {
         $("body").sendKeys(Keys.ARROW_UP);
     }
@@ -61,7 +61,7 @@ public class UiSteps {
         action.dragAndDrop(dragThis.get().getWrappedElement(), toThat.get().getWrappedElement());
     }
 
-    @Step("Скролл страницы вверх [{up}]")
+    @Step("Scrolling page up [{up}]")
     public static void scrollPage(boolean up) {
         JavascriptExecutor js = (JavascriptExecutor) WebDriverRunner.getWebDriver();
         if (up)
@@ -76,17 +76,17 @@ public class UiSteps {
                     "})");
     }
 
-    @Step("Удалить element из dom")
+    @Step("Remove element from dom")
     public static void removeElement(UIElement element) {
         removeElement(element.get().getWrappedElement());
     }
 
-    @Step("Удалить element из dom")
+    @Step("Remove element from dom")
     public static void removeElement(By element) {
         try {
             removeElement(Selenide.$(element).getWrappedElement());
         } catch (NoSuchElementException | ElementNotFound ex) {
-            log.error("Нельзя удалить элемент который не существует", ex);
+            log.error("Unable remove non existing element", ex);
         }
     }
 
@@ -94,11 +94,11 @@ public class UiSteps {
         try {
             ((JavascriptExecutor) WebDriverRunner.getWebDriver()).executeScript("arguments[0].remove()", element);
         } catch (NoSuchElementException | ElementNotFound ex) {
-            log.error("Нельзя удалить элемент который не существует", ex);
+            log.error("Unable remove non existing element", ex);
         }
     }
 
-    @Step("Открываем страницу {url} c логином {login} и паролем {password}")
+    @Step("Open page {url} with login {login} and password {password}")
     public static void open(String url, String login, String password) {
         boolean success = false;
         int retry = 1;
@@ -108,13 +108,14 @@ public class UiSteps {
                 Selenide.open(url, "", login, password);
                 success = true;
             } catch (Exception e) {
-                log.error("Ошибка открытия browser", e);
+                log.error("Error on browser open", e);
             }
         }
         if (!success)
             Selenide.open(url, "", login, password);
     }
 
+    @Step("Open page {url}")
     public static void open(String url) {
         boolean success = false;
         int retry = 1;
@@ -124,7 +125,7 @@ public class UiSteps {
                 Selenide.open(url);
                 success = true;
             } catch (Exception e) {
-                log.error("Ошибка открытия browser", e);
+                log.error("Error on browser open", e);
             }
         }
         if (!success)

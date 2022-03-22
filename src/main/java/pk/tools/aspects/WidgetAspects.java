@@ -6,6 +6,7 @@ import org.aspectj.lang.annotation.Aspect;
 import pk.tools.AbstractWidget;
 import pk.tools.composers.ListWCTypeBuilder;
 import pk.tools.composers.WebElementMetaDateBuilder;
+import pk.tools.exceptions.WidgetFormalizationException;
 import pk.tools.interfaces.WebElementMeta;
 
 import java.lang.reflect.Field;
@@ -14,9 +15,14 @@ import java.lang.reflect.Field;
 public class WidgetAspects {
 
     @After("within(@pk.tools.annotations.Widget *) && execution(*.new(..))")
-    public void initializeWidgetElements(JoinPoint joinPoint) {
-        if (joinPoint.getThis() instanceof AbstractWidget)
+    public void initializeWidgetElements(JoinPoint joinPoint) throws WidgetFormalizationException {
+        if (joinPoint.getThis() instanceof AbstractWidget) {
             WebElementMetaDateBuilder.buildMeta(joinPoint.getThis());
+        } else {
+            throw new WidgetFormalizationException(
+                    String.format("Widget %s doesn't inherited from 'AbstractWidget'",
+                            joinPoint.getThis().getClass().getName()));
+        }
 
         Iterable<Field> fields = WebElementMetaDateBuilder
                 .getFieldsUpTo(joinPoint.getThis().getClass(), AbstractWidget.class);
