@@ -11,6 +11,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import pk.tools.exceptions.ListComponentTypeException;
 import pk.tools.interfaces.ListComponent;
 import pk.tools.interfaces.WebElementMeta;
 import pk.tools.primitives.Link;
@@ -146,6 +147,13 @@ public class ListWC<T extends ListComponent> implements WebElementMeta {
     }
 
     public ListWC<T> refresh() {
+        if (genericTypeName.equals("void"))
+            //todo: move exception to signature
+            try {
+                throw new ListComponentTypeException(this);
+            } catch (ListComponentTypeException e) {
+                e.printStackTrace();
+            }
         components.clear();
         this.sourceElements.forEach(this::add);
         return this;
@@ -181,7 +189,6 @@ public class ListWC<T extends ListComponent> implements WebElementMeta {
 
     public T get(String id) {
         Allure.step("Getting element from list by [" + id + "]");
-//        Allure.step("Получаем элемент из списка по идентификатору [" + id + "]");
         refresh();
         should(sizeGreaterThan(0));
         Optional<T> target = components.stream().filter(item -> item.getId().contains(id)).findFirst();
@@ -197,7 +204,6 @@ public class ListWC<T extends ListComponent> implements WebElementMeta {
     }
 
     public T getToLowerCase(String id) {
-//        Allure.step("Получаем элемент из списка по идентификатору [" + id + "]");
         Allure.step("Getting element from list by [" + id + "]");
         refresh();
         should(sizeGreaterThan(0));
@@ -207,7 +213,6 @@ public class ListWC<T extends ListComponent> implements WebElementMeta {
     }
 
     public T get(Integer index) {
-//        Allure.step("Получаем элемент по id [" + index + "] из списка " + name);
         Allure.step("Getting element from list by [" + index + "]");
         refresh();
         should(sizeGreaterThan(index));

@@ -1,4 +1,4 @@
-package pk.tools.composers;
+package pk.tools.operators;
 
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;

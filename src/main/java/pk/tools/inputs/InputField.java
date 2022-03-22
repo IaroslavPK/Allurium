@@ -69,8 +69,6 @@ public class InputField extends AbstractWidget implements Writable {
     }
 
     public void write(String text) {
-//        super.setName();
-//        logStep("Вводим текст [" + text + "] в поле '" + name + "'");
         logStep(StepText.Write, Pair.$("{text}", text));
         root.clear();
         root.sendKeys(text);

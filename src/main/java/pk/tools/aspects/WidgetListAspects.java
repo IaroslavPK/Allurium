@@ -9,5 +9,6 @@ public class WidgetListAspects {
 
     @Before("execution(* pk.tools.ListWC.add(..))")
     public void setGenericWidgetType(JoinPoint joinPoint) {
+
     }
 }
