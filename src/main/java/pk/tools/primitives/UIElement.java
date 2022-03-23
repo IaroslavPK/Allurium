@@ -145,7 +145,7 @@ public class UIElement implements ListComponent {
                 Pair.$("{parent}", parentName)));
     }
 
-    protected void logStep(StepText stepText, Pair<String,String>... additionalPatterns) {
+    public void logStep(StepText stepText, Pair<String,String>... additionalPatterns) {
         applyName();
         String parentName = "";
         if (parent != null) parentName = parent.getName();

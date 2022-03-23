@@ -69,7 +69,6 @@ public class InputField extends AbstractWidget implements Writable {
     }
 
     public void write(String text) {
-        logStep(StepText.Write, Pair.$("{text}", text));
         root.clear();
         root.sendKeys(text);
     }
@@ -79,12 +78,6 @@ public class InputField extends AbstractWidget implements Writable {
 //        super.setName();
         logStep(StepText.Clear_text_field);
         root.clear();
-    }
-
-    public void clearButtonClick() {
-        super.applyName();
-        logStep("Очищаем поле ввода c помощью кнопки '" + name + "'");
-        clearButton.click();
     }
 
     public String value() {

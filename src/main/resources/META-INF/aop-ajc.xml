@@ -3,5 +3,6 @@
         <aspect name="pk.tools.aspects.WidgetAspects"/>
         <aspect name="pk.tools.aspects.PageAspects"/>
         <aspect name="pk.tools.aspects.WidgetListAspects"/>
+        <aspect name="pk.tools.aspects.InputAspects"/>
     </aspects>
 </aspectj>
