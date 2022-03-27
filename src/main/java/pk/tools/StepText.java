@@ -1,8 +1,12 @@
 package pk.tools;
 
 import com.epam.jdi.tools.pairs.Pair;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import lombok.AllArgsConstructor;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @AllArgsConstructor
@@ -72,7 +76,7 @@ public enum StepText {
             "Verify that {element} {name} is not visible on page",
             "Verify that {element} {name} is not visible on page in {parent}",
             "Проверяем, что {element} {name} не отображается на странице",
-            "Проверяем, что {element} {name} не отображается на странице в виджете {parent}"
+            "Проверяем, что {element} {name} не отображается на странице"
     ),
     Assert_visible_with_duration(
             "Verify that {element} {name} will be shown during next {sec} seconds",
@@ -127,8 +131,18 @@ public enum StepText {
             "Drag {from_name} to {to_name}",
             "Перетаскиваем {from_name} в {to_name}",
             "Перетаскиваем {from_name} в {to_name}"
+    ),
+    Dropdown_select(
+            "",
+            "",
+            "",
+            ""
     );
 
+    static {
+//        StepTextYmlObject.writeExampleFile();
+//        System.out.println(StepTextProvider.getStepTextTemplate("click") + ">>>");
+    }
 
     String en;
     String enDetailed;
@@ -174,7 +188,7 @@ public enum StepText {
         }
 
         if (elementType.equals(""))
-            pattern = pattern.replace("{element}", StepsLocalizedPattern.element.getLocalizedValue());
+            pattern = pattern.replace("{element}", StepsLocalizedPattern.element.getLocalizedValue("english"));
 
         for (Pair<String, String> namesPattern : patterns) {
             pattern = pattern.replace(namesPattern.key, namesPattern.value);

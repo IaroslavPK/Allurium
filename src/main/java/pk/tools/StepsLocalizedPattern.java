@@ -5,18 +5,17 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public enum StepsLocalizedPattern {
     element("element", "элемент"),
-    icon("icon", "иконка");
+    widget("widget", "виджет");
 
-    String en;
-    String ru;
+    String english;
+    String russian;
 
-    public String getLocalizedValue() {
-        String loc = "en";
-        switch (loc) {
+    public String getLocalizedValue(String localization) {
+        switch (localization) {
+            case "russian":
+                return russian;
             default:
-                return en;
-            case "ru":
-                return ru;
+                return english;
         }
     }
 }

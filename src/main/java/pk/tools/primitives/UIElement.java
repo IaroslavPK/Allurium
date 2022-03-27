@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
-import org.testng.Assert;
 import pk.tools.AbstractWidget;
 import pk.tools.StepText;
+import pk.tools.StepTextProvider;
 import pk.tools.UiSteps;
 import pk.tools.interfaces.ListComponent;
 
@@ -24,7 +24,6 @@ import java.util.List;
 
 import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.executeJavaScript;
 
 @NoArgsConstructor
 @Slf4j
@@ -134,7 +133,31 @@ public class UIElement implements ListComponent {
         if (stepsReportLoggingEnabled) Allure.step(stepText);
     }
 
+    public void logStepToReport(String stepName) {
+        applyName();
+        String parentName = "";
+        if (parent != null) parentName = parent.getName();
+        logStep(StepTextProvider.getStepText(stepName,
+                Pair.$("{name}", wrappedName()),
+                Pair.$("{element}", type),
+                Pair.$("{parent}", parentName))
+        );
+    }
+
+    public void logStepToReport(String stepName, Pair<String,String>... additionalPatterns) {
+        applyName();
+        String parentName = "";
+        if (parent != null) parentName = parent.getName();
+        List<Pair<String, String>> patterns = new ArrayList<>();
+        patterns.add(Pair.$("{name}", wrappedName()));
+        patterns.add(Pair.$("{element}", type));
+        patterns.add(Pair.$("{parent}", parentName));
+        patterns.addAll(Arrays.asList(additionalPatterns));
+        logStep(StepTextProvider.getStepText(stepName, patterns));
+    }
+
     @SuppressWarnings("unchecked")
+    @Deprecated
     protected void logStep(StepText stepText) {
         applyName();
         String parentName = "";
@@ -145,6 +168,7 @@ public class UIElement implements ListComponent {
                 Pair.$("{parent}", parentName)));
     }
 
+    @Deprecated
     public void logStep(StepText stepText, Pair<String,String>... additionalPatterns) {
         applyName();
         String parentName = "";
@@ -221,7 +245,8 @@ public class UIElement implements ListComponent {
 
     @SuppressWarnings("unchecked")
     public UIElement click(ClickOptions clickOptions) {
-        logStep(StepText.Click);
+//        logStep(StepText.Click);
+        logStepToReport("click");
         root.scrollIntoView("{behavior: \"auto\", block: \"center\", inline: \"center\"}");
         root.hover().click(clickOptions);
         return this;

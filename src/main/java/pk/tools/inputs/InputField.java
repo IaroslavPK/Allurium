@@ -4,7 +4,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.epam.jdi.tools.pairs.Pair;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Assertions;
+import org.assertj.core.api.Assertions;
 import org.openqa.selenium.By;
 import pk.tools.AbstractWidget;
 import pk.tools.ElementType;
@@ -75,16 +75,13 @@ public class InputField extends AbstractWidget implements Writable {
 
     @Override
     public void clear() {
-//        super.setName();
         logStep(StepText.Clear_text_field);
         root.clear();
     }
 
     public String value() {
         super.applyName();
-        String value = root.getValue();
-        logStep("Получаем значение поля ввода '" + name + "' значение = '" + value +"'");
-        return value;
+        return root.getValue();
     }
 
     public void pressEnter() {
@@ -92,10 +89,8 @@ public class InputField extends AbstractWidget implements Writable {
         root.pressEnter();
     }
 
-    public void checkIsEmpty() {
-        logStep(StepText.Verify_text_field_blank);
-        Assertions.assertEquals("", root.getValue(),
-                StepText.Field_has_value.getStepText(Pair.$("{name}", wrappedName())));
+    public void assertEmpty() {
+        Assertions.assertThat(root.getValue()).as(wrappedName() + " input field").isEqualTo("");
     }
 
 

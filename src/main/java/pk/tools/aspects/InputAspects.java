@@ -13,23 +13,40 @@ import pk.tools.inputs.InputField;
 @Aspect
 public class InputAspects {
 
-    //also working
-//    @Before("execution (* pk.tools.inputs.InputField.write(..))")
-//    public void stepWrite(JoinPoint joinPoint) {
-//        InputField inputField = (InputField) joinPoint.getThis();
-//        String typingText = (String) joinPoint.getArgs()[0];
-//        inputField.logStep(StepText.Write, Pair.$("{text}", typingText));
-//    }
-
     @Around("execution (* pk.tools.inputs.InputField.write(..))")
-    public void stepWrite(ProceedingJoinPoint invocation) throws StepInjectionException {
+    @SuppressWarnings("unchecked")
+    public void stepWriteInjection(ProceedingJoinPoint invocation) throws StepInjectionException {
         InputField inputField = (InputField) invocation.getThis();
         String typingText = (String) invocation.getArgs()[0];
         try {
-            inputField.logStep(StepText.Write, Pair.$("{text}", typingText));
+            inputField.logStepToReport("write", Pair.$("{text}", typingText));
             invocation.proceed();
-        } catch (Throwable e) {
+        } catch (Throwable tex) {
             throw new StepInjectionException(inputField, StepText.Write);
+        }
+    }
+
+    @Around("execution (* pk.tools.inputs.InputField.clear(..))")
+    @SuppressWarnings("unchecked")
+    public void stepClearInjection(ProceedingJoinPoint invocation) throws StepInjectionException {
+        InputField inputField = (InputField) invocation.getThis();
+        try {
+            inputField.logStep(StepText.Clear_text_field);
+            invocation.proceed();
+        } catch (Throwable tex) {
+            throw new StepInjectionException(inputField, StepText.Clear_text_field);
+        }
+    }
+
+    @Around("execution (* pk.tools.inputs.InputField.assertEmpty(..))")
+    @SuppressWarnings("unchecked")
+    public void stepAssertEmptyInjection(ProceedingJoinPoint invocation) throws StepInjectionException {
+        InputField inputField = (InputField) invocation.getThis();
+        try {
+            inputField.logStep(StepText.Verify_text_field_blank);
+            invocation.proceed();
+        } catch (Throwable tex) {
+            throw new StepInjectionException(inputField, StepText.Verify_text_field_blank);
         }
     }
 }

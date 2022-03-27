@@ -1,0 +1,141 @@
+
+english:
+
+  click:
+    1: "Click on {element} {name}"
+    2: "Click on {element} {name} in {parent}"
+
+  drag_and_drop:
+    1: "Drag {from_name} to {to_name}"
+    2: "Drag {from_name} to {to_name}"
+
+  hover:
+    1: "Hover cursor over {element} {name}"
+    2: "Hover cursor over {element} {name} in {parent}"
+
+  scroll:
+    1: "Scroll to {element} {name}"
+    2: "Scroll to {element} {name} in {parent}"
+
+  write:
+    1: "Writing {text} into input field {name}"
+    2: "Writing {text} into input field {name} in {parent} widget"
+
+  clear:
+    1: "Clear text input field {name}"
+    2: "Clear text input field {name} in widget {parent}"
+
+  text_field_press_enter:
+    1: "Press key ENTER in text field {name} input field"
+    2: "Press key ENTER in text field {name} input field in widget {parent}"
+
+  dropdown_select:
+    1: "Select option {name} from drop down list {element}"
+    2: "Select option {name} from drop down list {element} in {parent}"
+
+  assert_text:
+    1: "Check {element} {name} contains text: {text}"
+    2: "Check {element} {name} contains text: {text} in {parent}"
+
+  assert_exist:
+    1: "Verify that {element} {name} is exist"
+    2: "Verify that {element} {name} is exist in {parent}"
+
+  assert_value:
+    1: "Check {element} {name} contains value: {text}"
+    2: "Check {element} {name} contains value: {text} in {parent}"
+
+  assert_visible:
+    1: "Verify that {element} {name} is not exist"
+    2: "Verify that {element} {name} is not exist in {parent}"
+
+  assert_not_visible:
+    1: "Verify that {element} {name} is not visible on page"
+    2: "Verify that {element} {name} is not visible on page in {parent}"
+
+  assert_visible_in_viewport:
+    1: "Verify that {element} {name} is visible in view port on page"
+    2: "Verify that {element} {name} is visible in view port on page in {parent}"
+
+  assert_visible_with_duration:
+    1: "Verify that {element} {name} will be shown during next {sec} seconds"
+    2: "Verify that {element} {name} will be shown during next {sec} seconds in {parent}"
+
+  assert_has_css_class:
+    1: "Verify {element} {name} has CSS class {clazz}"
+    2: "Verify {element} {name} has CSS class {clazz} in {parent}"
+
+  assert_has_not_css_class:
+    1: "Verify {element} {name} has not CSS class {clazz}"
+    2: "Verify {element} {name} has not CSS class {clazz} in {parent}"
+
+
+
+russian:
+  click:
+    1: "Нажимаем - {element} {name}"
+    2: "Нажимаем - {element} {name} в виджете {parent}"
+
+  drag_and_drop:
+    1: "Drag {from_name} to {to_name}"
+    2: "Drag {from_name} to {to_name}"
+
+  hover:
+    1: "Наводим курсор на - {element} {name}"
+    2: "Наводим курсор на - {element} {name} в виджете {parent}"
+
+  scroll:
+    1: "Прокручиваем к элементу {element} {name}"
+    2: "Прокручиваем к элементу {element} {name} в виджете {parent}"
+
+  write:
+    1: "Вводим текст {text} в поле ввода {name}"
+    2: "Вводим текст {text} в поле ввода {name} в виджете {parent}"
+
+  clear:
+    1: "Очищаем поле ввода {name}"
+    2: "Очищаем поле ввода {name} в виджете {parent}"
+
+  text_field_press_enter:
+    1: "Press key ENTER in text field {name} input field"
+    2: "Press key ENTER in text field {name} input field in widget {parent}"
+
+  dropdown_select:
+    1: "Выбираем опцию {name} в выпадающем списке {element}"
+    2: "Выбираем опцию {name} в выпадающем списке {element} в виджете {parent}"
+
+  assert_text:
+    1: "Проверяем '{element} {name}' на наличие текста: {text}"
+    2: "Проверяем '{element} {name}' на наличие текста: {text} в виджете {parent}"
+
+  assert_exist:
+    1: "Проверяем что '{element} {name}' присутствует на странице"
+    2: "Проверяем что '{element} {name}' присутствует на странице в виджете {parent}"
+
+  assert_value:
+    1: "Проверяем '{element} {name}' содержит значение: {text}"
+    2: "Проверяем '{element} {name}' содержит значение: {text} в виджете {parent}"
+
+  assert_visible:
+    1: "Проверяем, что '{element} {name}' отображается на странице"
+    2: "Проверяем, что '{element} {name}' отображается на странице в виджете {parent}"
+
+  assert_not_visible:
+    1: "Проверяем, что {element} {name} не отображается на странице"
+    2: "Проверяем, что {element} {name} не отображается на странице"
+
+  assert_visible_in_viewport:
+    1: "Проверяем, что '{element} {name}' отображается в видимой части страницы"
+    2: "Проверяем, что '{element} {name}' отображается в видимой части страницы в виджете {parent}"
+
+  assert_visible_with_duration:
+    1: "Проверяем, что {element} {name} отобразится на странице в течение {sec} секунд"
+    2: "Проверяем, что {element} {name} отобразится на странице в течение {sec} секунд в виджете {parent}"
+
+  assert_has_css_class:
+    1: "Проверяем, что {element} {name} имеет CSS класс {clazz}"
+    2: "Проверяем, что {element} {name} имеет CSS класс {clazz} в виджете {parent}"
+
+  assert_has_not_css_class:
+    1: "Проверяем, что {element} {name} не имеет CSS класс {clazz}"
+    2: "Проверяем, что {element} {name} не имеет CSS класс {clazz} в виджете {parent}"

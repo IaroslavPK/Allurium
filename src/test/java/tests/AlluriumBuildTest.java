@@ -20,7 +20,7 @@ public class AlluriumBuildTest extends TestBase {
         searchResultPage.getSearchResults().get(0).click();
     }
 
-    @Test
+    @Test(enabled = false)
     public void searchImage() {
         UiSteps.open("https://www.google.com/");
         googleSearchPage.getSubmitCookiesPopup().submitButton.click();

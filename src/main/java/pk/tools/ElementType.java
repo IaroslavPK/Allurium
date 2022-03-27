@@ -1,6 +1,7 @@
 package pk.tools;
 
 import lombok.AllArgsConstructor;
+import pk.tools.utils.PropertyLoader;
 
 @AllArgsConstructor
 public enum ElementType {
@@ -10,19 +11,17 @@ public enum ElementType {
     TEXT("text", "текст"),
     ICON("icon", "иконка"),
     IMAGE("img", "изображение"),
-    TAG("tag", "тег"),
     INPUT("input text field","поле ввода");
 
-    String en;
-    String ru;
+    String english;
+    String russian;
 
     public String getType() {
-        String loc = "ru";
-        switch (loc) {
+        switch (PropertyLoader.loadSystemPropertyOrDefault("localization", "english")) {
             default:
-                return en;
+                return english;
             case "ru":
-                return ru;
+                return russian;
         }
     }
 }
