@@ -1,12 +1,9 @@
 package pk.tools.aspects;
 
 import com.epam.jdi.tools.pairs.Pair;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import pk.tools.StepText;
 import pk.tools.exceptions.StepInjectionException;
 import pk.tools.inputs.InputField;
 
@@ -22,7 +19,7 @@ public class InputAspects {
             inputField.logStepToReport("write", Pair.$("{text}", typingText));
             invocation.proceed();
         } catch (Throwable tex) {
-            throw new StepInjectionException(inputField, StepText.Write);
+            throw new StepInjectionException(inputField, "write");
         }
     }
 
@@ -31,10 +28,22 @@ public class InputAspects {
     public void stepClearInjection(ProceedingJoinPoint invocation) throws StepInjectionException {
         InputField inputField = (InputField) invocation.getThis();
         try {
-            inputField.logStep(StepText.Clear_text_field);
+            inputField.logStepToReport("clear");
             invocation.proceed();
         } catch (Throwable tex) {
-            throw new StepInjectionException(inputField, StepText.Clear_text_field);
+            throw new StepInjectionException(inputField, "clear");
+        }
+    }
+
+    @Around("execution (* pk.tools.inputs.InputField.pressEnter(..))")
+    @SuppressWarnings("unchecked")
+    public void stepPressEnter(ProceedingJoinPoint invocation) throws StepInjectionException {
+        InputField inputField = (InputField) invocation.getThis();
+        try {
+            inputField.logStepToReport("text_field_press_enter");
+            invocation.proceed();
+        } catch (Throwable tex) {
+            throw new StepInjectionException(inputField, "text_field_press_enter");
         }
     }
 
@@ -43,10 +52,10 @@ public class InputAspects {
     public void stepAssertEmptyInjection(ProceedingJoinPoint invocation) throws StepInjectionException {
         InputField inputField = (InputField) invocation.getThis();
         try {
-            inputField.logStep(StepText.Verify_text_field_blank);
+            inputField.logStepToReport("text_field_assert_blank");
             invocation.proceed();
         } catch (Throwable tex) {
-            throw new StepInjectionException(inputField, StepText.Verify_text_field_blank);
+            throw new StepInjectionException(inputField, "text_field_assert_blank");
         }
     }
 }

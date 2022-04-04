@@ -13,4 +13,8 @@ public class ListComponentTypeException extends Exception {
                 listWC.getName(),
                 listWC.getGenericTypeName()));
     }
+
+    public ListComponentTypeException(ListWC<?> listWC, String errorMessage) {
+        super(String.format(errorMessage, listWC.getName()));
+    }
 }

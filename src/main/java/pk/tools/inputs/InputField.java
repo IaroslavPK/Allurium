@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import pk.tools.AbstractWidget;
 import pk.tools.ElementType;
 import pk.tools.StepText;
@@ -75,8 +76,9 @@ public class InputField extends AbstractWidget implements Writable {
 
     @Override
     public void clear() {
-        logStep(StepText.Clear_text_field);
-        root.clear();
+        while(!root.getAttribute("value").equals("")){
+            root.sendKeys(Keys.BACK_SPACE);
+        }
     }
 
     public String value() {
@@ -85,7 +87,6 @@ public class InputField extends AbstractWidget implements Writable {
     }
 
     public void pressEnter() {
-        logStep(StepText.Text_field_press_enter);
         root.pressEnter();
     }
 

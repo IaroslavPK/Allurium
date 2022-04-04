@@ -15,4 +15,6 @@ public @interface Name {
     String description() default "";
 
     String nameFrom() default "text";
+
+    boolean stepsEnabled() default true;
 }

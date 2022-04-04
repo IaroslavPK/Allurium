@@ -2,6 +2,7 @@ package pk.tools.operators;
 
 import org.aspectj.lang.JoinPoint;
 import pk.tools.ListWC;
+import pk.tools.exceptions.ListComponentTypeException;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
@@ -18,6 +19,8 @@ public class ListWCTypeBuilder {
                 if (field.getType().equals(ListWC.class)) {
                     ListWC<?> listWC = (ListWC<?>) field.get(joinPoint.getThis());
                     Type listTypeFullName = field.getGenericType();
+                    if (listTypeFullName.getTypeName().equals(""))
+                        throw new ListComponentTypeException(listWC, "Type is not selected for ListWC with name='%s'");
                     Pattern pattern = Pattern.compile("<(.*?)>");
                     Matcher matcher = pattern.matcher(listTypeFullName.getTypeName());
                     matcher.matches();

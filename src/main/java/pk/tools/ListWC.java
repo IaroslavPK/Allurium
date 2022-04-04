@@ -14,14 +14,12 @@ import org.testng.Assert;
 import pk.tools.exceptions.ListComponentTypeException;
 import pk.tools.interfaces.ListComponent;
 import pk.tools.interfaces.WebElementMeta;
-import pk.tools.primitives.Link;
-import pk.tools.primitives.UIElement;
 
 import java.lang.reflect.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
+import static com.codeborne.selenide.CollectionCondition.*;
 import static com.codeborne.selenide.Selenide.$$;
 
 /**
@@ -104,7 +102,9 @@ public class ListWC<T extends ListComponent> implements WebElementMeta {
     private ElementsCollection sourceElements;
     private List<T> components = new ArrayList<>();
     private Class<T> componentsClass;
-    @Setter @Getter
+
+    @Setter
+    @Getter
     private String genericTypeName = "void";
 
     @Getter
@@ -173,15 +173,12 @@ public class ListWC<T extends ListComponent> implements WebElementMeta {
             T listComponent = (T) obj;
             listComponent.setAssignNameMethod(assignNameMethod);
             components.add(listComponent);
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (NoSuchMethodException
+                | ClassNotFoundException
+                | InvocationTargetException
+                | InstantiationException
+                | IllegalAccessException e)
+        {
             e.printStackTrace();
         }
         return this;
@@ -204,7 +201,6 @@ public class ListWC<T extends ListComponent> implements WebElementMeta {
     }
 
     public T getToLowerCase(String id) {
-        Allure.step("Getting element from list by [" + id + "]");
         refresh();
         should(sizeGreaterThan(0));
         return components.stream()
@@ -213,7 +209,6 @@ public class ListWC<T extends ListComponent> implements WebElementMeta {
     }
 
     public T get(Integer index) {
-        Allure.step("Getting element from list by [" + index + "]");
         refresh();
         should(sizeGreaterThan(index));
         return components.get(index);
@@ -230,14 +225,12 @@ public class ListWC<T extends ListComponent> implements WebElementMeta {
     }
 
     public T first() {
-        Allure.step("Получаем первый элемент из списка " + name);
         refresh();
         should(sizeGreaterThan(0));
         return components.get(0);
     }
 
     public T last() {
-        Allure.step("Получаем последний элемент из списка " + name);
         refresh();
         should(sizeGreaterThan(1));
         return components.get(components.size() - 1);
@@ -264,10 +257,24 @@ public class ListWC<T extends ListComponent> implements WebElementMeta {
         return components.size();
     }
 
-    public void assertSizeIs(int size) {
+    public void assertSize(int size) {
         refresh();
-        Allure.step("Проверяем, что колличество виджетов в списке " + name + "  равно " + size);
-        sourceElements.should(CollectionCondition.sizeGreaterThan(size));
+        sourceElements.shouldHave(CollectionCondition.size(size));
+    }
+
+    public void assertSizeGreaterThen(int size) {
+        refresh();
+        sourceElements.shouldHave(sizeGreaterThan(size));
+    }
+
+    public void assertSizeGreaterThenOrEqual(int size) {
+        refresh();
+        sourceElements.shouldHave(sizeGreaterThanOrEqual(size));
+    }
+
+    public void assertSizeLessThen(int size) {
+        refresh();
+        sourceElements.shouldHave(sizeLessThan(size));
     }
 
     public void dump() {

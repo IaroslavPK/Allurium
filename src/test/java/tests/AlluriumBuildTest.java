@@ -15,9 +15,12 @@ public class AlluriumBuildTest extends TestBase {
     public void googleSearch() {
         UiSteps.open("https://www.google.com/");
         googleSearchPage.getSubmitCookiesPopup().submitButton.click();
+        googleSearchPage.getSearchField().write("bounty view");
+        googleSearchPage.getSearchField().clear();
+        googleSearchPage.getSearchField().assertEmpty();
         googleSearchPage.getSearchField().write("mountain view");
         googleSearchPage.getSearchField().pressEnter();
-        searchResultPage.getSearchResults().get(0).click();
+        searchResultPage.getSearchResults().get(110).click();
     }
 
     @Test(enabled = false)

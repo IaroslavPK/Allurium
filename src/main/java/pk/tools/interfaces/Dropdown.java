@@ -11,7 +11,5 @@ public interface Dropdown extends WebComponent {
 
     void extend();
 
-    SelenideElement select(String value);
-
-    boolean isOptionExists(String value);
+    void select(String value);
 }

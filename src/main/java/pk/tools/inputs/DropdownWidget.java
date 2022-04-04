@@ -14,35 +14,6 @@ import pk.tools.interfaces.Dropdown;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 
-/**
- * Widget to working with custom drop down list which looks as native element <select><option/><</select>
- *
- * example of using:
- *
- *    <html>
- *        <ul>
- *            <li>option1</li>
- *            <li>option2</li>
- *            <li>option3</li>
- *        </ul>
- *    </html>
- *
- * ---------------------------------
- *
- *    <code>
- *        DropdownWC dropdown = new DropdownWC("ul");
- *        dropdown.selectItem("option2");
- *    </code>
- *
- *    Next commands Will be recognized as a @Step and added to the Allure report:
- *      - extend()
- *      - select(value)
- *      - selectFirst()
- *      - selectLast()
- *      - selectNot(value)
- *      - selectAny()
- *      - assertValue(value)
- */
 @Slf4j
 public class DropdownWidget extends AbstractWidget implements Dropdown {
 
@@ -78,9 +49,8 @@ public class DropdownWidget extends AbstractWidget implements Dropdown {
     }
 
     @Override
-    public SelenideElement select(String value) {
+    public void select(String value) {
         extend();
-        Allure.step("Выбираем значение [" + value + "] из выпадающего списка [" + name + "]");
         dump();
         options.shouldHave(sizeGreaterThan(1));
         SelenideElement option = options.stream()
@@ -88,11 +58,9 @@ public class DropdownWidget extends AbstractWidget implements Dropdown {
                 .findFirst()
                 .get();
         option.scrollIntoView("{behavior: \"instant\", block: \"end\", inline: \"center\"}").click();
-        return option;
     }
 
-    @Override
-    public boolean isOptionExists(String value) {
+    public boolean assertOptionExist(String value) {
         extend();
         return options.stream().anyMatch(item -> item.text().contains(value));
     }
@@ -108,7 +76,7 @@ public class DropdownWidget extends AbstractWidget implements Dropdown {
 
     public String selectFirst() {
         extend();
-        Allure.step("Выбираем первый элемент из выпадающего списка [" + name + "]");
+//        Allure.step("Выбираем первый элемент из выпадающего списка [" + name + "]");
         String chosenModel = options.get(0).getText();
         options.get(0).click();
         return chosenModel;

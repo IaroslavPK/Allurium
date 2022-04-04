@@ -12,7 +12,6 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import pk.tools.AbstractWidget;
-import pk.tools.StepText;
 import pk.tools.StepTextProvider;
 import pk.tools.UiSteps;
 import pk.tools.interfaces.ListComponent;
@@ -22,8 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.codeborne.selenide.Condition.exist;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 
 @NoArgsConstructor
 @Slf4j
@@ -60,8 +58,13 @@ public class UIElement implements ListComponent {
     protected boolean stepsConsoleLoggingEnabled = true;
     protected boolean stepsReportLoggingEnabled = true;
 
-    private final String nameWrapStart = "[";
-    private final String nameWrapEnd = "]";
+    private static String nameWrapStart = "";
+    private static String nameWrapEnd = "";
+
+    static {
+        nameWrapStart = "[";
+        nameWrapEnd = "]";
+    }
 
     protected UIElement(String selenideLocator) {
         root = Selenide.$(selenideLocator);
@@ -157,29 +160,29 @@ public class UIElement implements ListComponent {
     }
 
     @SuppressWarnings("unchecked")
-    @Deprecated
-    protected void logStep(StepText stepText) {
-        applyName();
-        String parentName = "";
-        if (parent != null) parentName = parent.getName();
-        logStep(stepText.getStepText(
-                Pair.$("{name}", wrappedName()),
-                Pair.$("{element}", type),
-                Pair.$("{parent}", parentName)));
-    }
-
-    @Deprecated
-    public void logStep(StepText stepText, Pair<String,String>... additionalPatterns) {
-        applyName();
-        String parentName = "";
-        if (parent != null) parentName = parent.getName();
-        List<Pair<String, String>> patterns = new ArrayList<>();
-        patterns.add(Pair.$("{name}", wrappedName()));
-        patterns.add(Pair.$("{element}", type));
-        patterns.add(Pair.$("{parent}", parentName));
-        patterns.addAll(Arrays.asList(additionalPatterns));
-        logStep(stepText.getStepText(patterns));
-    }
+//    @Deprecated
+//    protected void logStep(StepText stepText) {
+//        applyName();
+//        String parentName = "";
+//        if (parent != null) parentName = parent.getName();
+//        logStep(stepText.getStepText(
+//                Pair.$("{name}", wrappedName()),
+//                Pair.$("{element}", type),
+//                Pair.$("{parent}", parentName)));
+//    }
+//
+//    @Deprecated
+//    public void logStep(StepText stepText, Pair<String,String>... additionalPatterns) {
+//        applyName();
+//        String parentName = "";
+//        if (parent != null) parentName = parent.getName();
+//        List<Pair<String, String>> patterns = new ArrayList<>();
+//        patterns.add(Pair.$("{name}", wrappedName()));
+//        patterns.add(Pair.$("{element}", type));
+//        patterns.add(Pair.$("{parent}", parentName));
+//        patterns.addAll(Arrays.asList(additionalPatterns));
+//        logStep(stepText.getStepText(patterns));
+//    }
 
     protected void applyName() {
         if (name.equals(""))
@@ -223,119 +226,249 @@ public class UIElement implements ListComponent {
 
     public String getText() {
         applyName();
-        //logStep(StepText.Get_text.getStepText(type, name)); //probably not need to be step
-        return root.text().trim();
+        return getText(true);
     }
 
-    public UIElement click() {
+    public String getText(String uniqueStepText) {
+        applyName();
+        logStep(uniqueStepText);
+        return getText(true);
+    }
+
+    public String getText(boolean logAsStepOrNot) {
+        applyName();
+        if (logAsStepOrNot) {
+            logStepToReport("get_text");
+            return root.text();
+        } else
+            return root.text();
+    }
+
+    public void click() {
+        logStepToReport("click");
         root.scrollIntoView("{behavior: \"auto\", block: \"center\", inline: \"center\"}");
-        click(ClickOptions.usingDefaultMethod());
-        return this;
+        click(ClickOptions.usingDefaultMethod(), false);
+    }
+
+    public void click(String uniqueStepText) {
+        logStepToReport(uniqueStepText);
+        root.scrollIntoView("{behavior: \"auto\", block: \"center\", inline: \"center\"}");
+        root.hover().click();
+    }
+
+    public void click(boolean logAsStepOrNot) {
+        if (logAsStepOrNot) {
+            logStepToReport("click");
+            click();
+        } else
+            click();
+    }
+
+    @SuppressWarnings("unchecked")
+    public void click(ClickOptions clickOptions) {
+        logStepToReport("click");
+        root.scrollIntoView("{behavior: \"auto\", block: \"center\", inline: \"center\"}");
+        root.hover().click(clickOptions);
+    }
+
+    public void click(ClickOptions clickOptions, boolean logAsStepOrNot) {
+        if (logAsStepOrNot) {
+            logStepToReport("click");
+            root.hover().click(clickOptions);
+        } else
+            root.hover().click(clickOptions);
     }
 
     /**
      * Полезно при работе с автоскроллом. Иначе не всегда успевает проскроллиться и кликает мимо элемента
      */
-    public UIElement clickWithDelay(int seconds) {
+    public void clickWithDelay(int seconds) {
         UiSteps.waiting(seconds, "перед кликом");
         root.scrollIntoView("{behavior: \"auto\", block: \"start\", inline: \"start\"}");
         click(ClickOptions.usingDefaultMethod());
-        return this;
     }
 
     @SuppressWarnings("unchecked")
-    public UIElement click(ClickOptions clickOptions) {
-//        logStep(StepText.Click);
-        logStepToReport("click");
-        root.scrollIntoView("{behavior: \"auto\", block: \"center\", inline: \"center\"}");
-        root.hover().click(clickOptions);
-        return this;
-    }
-
-    public UIElement click(String stepText) {
-        logStep(stepText);
-        root.scrollIntoView("{behavior: \"auto\", block: \"center\", inline: \"center\"}");
-        root.hover().click();
-        return this;
-    }
-
-    @SuppressWarnings("unchecked")
-    public UIElement assertText(String text) {
-        logStep(StepText.Assert_text, Pair.$("{text}", text));
+    public void assertHasText(String text) {
+        logStepToReport("assert_text", Pair.$("{text}", text));
         root.shouldHave(Condition.text(text));
-        return this;
+    }
+
+    public void assertHasText(String text, String uniqueStepText) {
+        logStep(uniqueStepText);
+        root.shouldHave(Condition.text(text));
+    }
+
+    public void assertHasText(String text, boolean logAsStepOrNot) {
+        if (logAsStepOrNot)
+            assertHasText(text);
+        else
+            root.shouldHave(Condition.text(text));
     }
 
     @SuppressWarnings("unchecked")
     public void assertValue(String text) {
-        logStep(StepText.Assert_value, Pair.$("{text}", text));
+        logStepToReport("assert_value", Pair.$("{text}", text));
         root.shouldHave(Condition.value(text));
     }
 
+    public void assertValue(String text,  String uniqueStepText) {
+        logStep(uniqueStepText);
+        assertValue(text);
+    }
+
+    public void assertValue(String text,  boolean logAsStepOrNot) {
+        if (logAsStepOrNot)
+            assertValue(text);
+        else
+            root.shouldHave(Condition.value(text));
+    }
+
     @SuppressWarnings("unchecked")
-    public UIElement scrollIntoView() {
-        logStep(StepText.Scroll);
+    public void scrollIntoView() {
+        logStepToReport("scroll");
         root.scrollIntoView("{behavior: \"auto\", block: \"center\", inline: \"center\"}");
-        return this;
     }
 
     /**
      * Проверка, что элемент отображается на текущем экране, т.е. в видимой части страницы. Полезно при проверке автоскролла.
      */
-    public UIElement assertVisibleInViewport() {
-        logStep(StepText.Assert_visibleInViewPort);
+//    public void assertVisibleInViewport() {
+//        logStep(StepText.Assert_visibleInViewPort);
+//        Assertions.assertThat()
 //        Assert.assertEquals(executeJavaScript(GlobalVariable.isVisibleInViewport, root), Boolean.TRUE);
-        return this;
-    }
+//    }
 
-    public UIElement assertVisible() {
-        logStep(StepText.Assert_visible);
+    public void assertVisible() {
+        logStepToReport("assert_visible");
         root.shouldBe(visible);
-        return this;
     }
 
-    public UIElement assertNotVisible() {
-        logStep(StepText.Assert_not_visible);
+    public void assertVisible(String uniqueStepText) {
+        logStep(uniqueStepText);
+        root.shouldBe(visible);
+    }
+
+    public void assertVisible(boolean logAsStepOrNot) {
+        if (logAsStepOrNot)
+            assertVisible();
+        else
+            root.shouldBe(visible);
+    }
+
+    public void assertNotVisible() {
+        logStepToReport("assert_not_visible");
         root.shouldNotBe(visible);
-        return this;
+    }
+
+    public void assertNotVisible(String uniqueStepText) {
+        logStep(uniqueStepText);
+        root.shouldNotBe(visible);
+    }
+
+    public void assertNotVisible(boolean logAsStepOrNot) {
+        if (logAsStepOrNot)
+            assertNotVisible();
+        else
+            root.shouldNotBe(visible);
     }
 
     @SuppressWarnings("unchecked")
-    public UIElement assertVisibleWithDuration(int seconds) {
-        logStep(StepText.Assert_visible_with_duration, Pair.$("{sec}", String.valueOf(seconds)));
+    public void assertVisibleWithDuration(int seconds) {
+        logStepToReport("assert_visible_with_duration", Pair.$("{sec}", String.valueOf(seconds)));
         root.shouldBe(visible, Duration.ofSeconds(seconds));
-        return this;
     }
 
-    public UIElement exist(boolean flag) {
-        if (flag) {
-            logStep(StepText.Assert_exist);
+    public void assertExists() {
+        logStepToReport("assert_exist");
+        root.should(exist);
+    }
+
+    public void assertExists(String uniqueStepText) {
+        logStep(uniqueStepText);
+        root.should(exist);
+    }
+
+    public void assertExists(boolean logAsStepOrNot) {
+        if (logAsStepOrNot)
+            assertExists();
+        else
             root.should(exist);
-        } else {
-            logStep(StepText.Assert_not_exist);
+    }
+
+    public void assertNotExists() {
+        logStepToReport("assert_not_exist");
+        root.shouldNot(exist);
+    }
+
+    public void assertNotExists(String uniqueStepText) {
+        logStep(uniqueStepText);
+        root.shouldNot(exist);
+    }
+
+    public void assertNotExists(boolean logAsStepOrNot) {
+        if (logAsStepOrNot)
+            assertNotExists();
+        else
             root.shouldNot(exist);
-        }
-        return this;
     }
 
-    public UIElement hover() {
-        logStep(StepText.Hover);
+    public void hover() {
+        logStepToReport("hover");
         root.hover();
-        return this;
+    }
+
+    public void hover(String uniqueStepText) {
+        logStepToReport(uniqueStepText);
+    }
+
+    public void hover(boolean logAsStepOrNot) {
+        if (logAsStepOrNot)
+            hover();
+        else
+            root.hover();
     }
 
     @SuppressWarnings("unchecked")
-    public UIElement shouldHaveCssClass(String clazz) {
-        logStep(StepText.Assert_has_css_class, Pair.$("{clazz}", clazz));
-        root.shouldBe(Condition.cssClass(clazz), Duration.ofSeconds(30));
-        return this;
+    public void assertHasCssClass(String clazz) {
+        logStepToReport("assert_has_css_class", Pair.$("{clazz}", clazz));
+        root.shouldHave(cssClass(clazz));
+    }
+
+    public void assertHasCssClass(String clazz, boolean logAsStepOrNot) {
+        if (logAsStepOrNot)
+            assertHasCssClass(clazz);
+        else
+            root.shouldHave(cssClass(clazz));
     }
 
     @SuppressWarnings("unchecked")
-    public UIElement shouldNotHaveCssClass(String clazz) {
-        logStep(StepText.Assert_has_not_css_class, Pair.$("{clazz}", clazz));
-        root.shouldNotBe(Condition.cssClass(clazz), Duration.ofSeconds(30));
-        return this;
+    public void assertHasNotCssClass(String clazz) {
+        logStepToReport("assert_has_not_css_class", Pair.$("{clazz}", clazz));
+        root.shouldNotHave(cssClass(clazz));
+    }
+
+    public void assertHasNotCssClass(String clazz, boolean logAsStepOrNot) {
+        if (logAsStepOrNot)
+            assertHasNotCssClass(clazz);
+        else
+            root.shouldNotHave(cssClass(clazz));
+    }
+
+    @SuppressWarnings("unchecked")
+    public void assertHasCssClass(String clazz, int duringSeconds) {
+        logStepToReport("assert_has_css_class_during_time",
+                Pair.$("{clazz}", clazz),
+                Pair.$("{seconds}", String.valueOf(duringSeconds)));
+        root.shouldBe(cssClass(clazz), Duration.ofSeconds(duringSeconds));
+    }
+
+    @SuppressWarnings("unchecked")
+    public void shouldNotHaveCssClass(String clazz, int duringSeconds) {
+        logStepToReport("assert_has_not_css_class_during_time",
+                Pair.$("{clazz}", clazz),
+                Pair.$("{seconds}", String.valueOf(duringSeconds)));
+        root.shouldNotBe(cssClass(clazz), Duration.ofSeconds(30));
     }
 
 }

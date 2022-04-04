@@ -16,9 +16,9 @@ public class SearchResultPage extends BasePage {
     protected InputField searchField = InputField.from(By.xpath("//input[@title='Search']"));
 
     @Name("search groups")
-    protected ListWC<Link> searchGroups = new ListWC<Link>(By.xpath("//div[@role='navigation']/div/div/div/div/div"), Link.class);
+    protected ListWC<Link> searchGroups = new ListWC<>(By.xpath("//div[@role='navigation']/div/div/div/div/div"));
 
     @Name("search results")
-    protected ListWC<Link> searchResults = new ListWC<Link>(By.xpath("//a//h3"));
+    protected ListWC<Link> searchResults = new ListWC<>(By.xpath("//a//h3"));
 
 }

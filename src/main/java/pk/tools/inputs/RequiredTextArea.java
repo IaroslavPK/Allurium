@@ -2,27 +2,26 @@ package pk.tools.inputs;
 
 import com.codeborne.selenide.SelenideElement;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.By;
 import pk.tools.interfaces.RequiredInput;
 
 /**
- * Wrapper among default text <input> which is required to be filled.
- * Extended from InputField
+ * Wrapper among default <textarea> which is required to be filled.
+ * Extended from TextArea
  * Shows the error message if blank.
  *
  *  > example of using:
  *
  *    <html>
- *        <input type="text">
+ *        <textarea>lorem ipsum</textarea>
  *    </html>
  *
  * ---------------------------------
  *
  *    <code>
- *        InputField inputField = new InputField("input");
- *        inputField.write("Hello World");
+ *        InputField textarea = new InputField("input");
+ *        textarea.write("Hello World");
  *        (anyForm).clickSubmit();
- *        Assertions.assertTrue(inputField.isErrorMessageShown())
+ *        Assertions.assertTrue(textarea.isErrorMessageShown())
  *    </code>
  *
  *    Next commands will be recognized as a @Step and added to the Allure report:
@@ -30,16 +29,11 @@ import pk.tools.interfaces.RequiredInput;
  *      - clear()
  */
 @Slf4j
-public class InputFieldRequired extends InputField implements RequiredInput {
+public class RequiredTextArea extends TextArea implements RequiredInput {
 
     private final SelenideElement errorMessage;
 
-    public InputFieldRequired(By rootLocator) {
-        super(rootLocator);
-        errorMessage = root.ancestor(".input-field").$(".input-field__error-message");
-    }
-
-    public InputFieldRequired(String selenideSelector) {
+    public RequiredTextArea(String selenideSelector) {
         super(selenideSelector);
         errorMessage = root.ancestor(".input-field").$(".input-field__error-message");
     }

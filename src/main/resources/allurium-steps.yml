@@ -17,6 +17,10 @@ english:
     1: "Scroll to {element} {name}"
     2: "Scroll to {element} {name} in {parent}"
 
+  scroll_into_view:
+    1: "Scroll into view to {element} {name}"
+    2: "Scroll into view  to {element} {name} in {parent}"
+
   write:
     1: "Writing {text} into input field {name}"
     2: "Writing {text} into input field {name} in {parent} widget"
@@ -29,45 +33,114 @@ english:
     1: "Press key ENTER in text field {name} input field"
     2: "Press key ENTER in text field {name} input field in widget {parent}"
 
-  dropdown_select:
-    1: "Select option {name} from drop down list {element}"
-    2: "Select option {name} from drop down list {element} in {parent}"
+  text_field_assert_blank:
+    1: "Verify input field {name} is blank"
+    2: "Verify input field {name} in widget {parent} is blank"
 
-  assert_text:
+  text_field_assert_value:
+    1: "Assert value is {value} in text field {name}"
+    2: "Assert value is {value} in text field {name} in {parent}"
+
+  dropdown_extend:
+    1: "Extend options list of {name} drop down list"
+    2: "Extend options list of {name} drop down list in {parent}"
+
+  dropdown_select:
+    1: "Select option {option} from drop down list {element}"
+    2: "Select option {option} from drop down list {element} in {parent}"
+
+  dropdown_select_first:
+    1: "Select first option {option} from drop down list {element}"
+    2: "Select first option {option} from drop down list {element} in {parent}"
+
+  dropdown_select_last:
+    1: "Select last option {option} from drop down list {element}"
+    2: "Select last option {option} from drop down list {element} in {parent}"
+
+  dropdown_select_any:
+    1: "Select random option {option} from drop down list {element}"
+    2: "Select random option {option} from drop down list {element} in {parent}"
+
+  dropdown_select_not:
+    1: "Select random option except {option} from drop down list {element}"
+    2: "Select random option except {option} from drop down list {element} in {parent}"
+
+  dropdown_assert_selected_value:
+    1: "Assert selected option is {option} in drop down list {element}"
+    2: "Assert selected option is {option} in drop down list {element} in {parent}"
+
+  dropdown_assert_selected_value_not:
+    1: "Assert selected option is not {option} in drop down list {element}"
+    2: "Assert selected option is not {option} in drop down list {element} in {parent}"
+
+  dropdown_assert_option_exist:
+    1: "Assert option {option} exist in drop down list {element}"
+    2: "Assert option {option} exist in drop down list {element} in parent"
+
+  assert_has_text:
     1: "Check {element} {name} contains text: {text}"
     2: "Check {element} {name} contains text: {text} in {parent}"
 
   assert_exist:
-    1: "Verify that {element} {name} is exist"
-    2: "Verify that {element} {name} is exist in {parent}"
+    1: "Assert that {element} {name} is exist"
+    2: "Assert that {element} {name} is exist in {parent}"
+
+  assert_not_exist:
+    1: "Assert that {element} {name} is not exist"
+    2: "Assert that {element} {name} is not exist in {parent}"
 
   assert_value:
-    1: "Check {element} {name} contains value: {text}"
-    2: "Check {element} {name} contains value: {text} in {parent}"
+    1: "Assert {element} {name} contains value: {text}"
+    2: "Assert {element} {name} contains value: {text} in {parent}"
 
   assert_visible:
-    1: "Verify that {element} {name} is not exist"
-    2: "Verify that {element} {name} is not exist in {parent}"
+    1: "Assert that {element} {name} is not exist"
+    2: "Assert that {element} {name} is not exist in {parent}"
 
   assert_not_visible:
-    1: "Verify that {element} {name} is not visible on page"
-    2: "Verify that {element} {name} is not visible on page in {parent}"
+    1: "Assert that {element} {name} is not visible on page"
+    2: "Assert that {element} {name} is not visible on page in {parent}"
 
   assert_visible_in_viewport:
-    1: "Verify that {element} {name} is visible in view port on page"
-    2: "Verify that {element} {name} is visible in view port on page in {parent}"
+    1: "Assert that {element} {name} is visible in view port on page"
+    2: "Assert that {element} {name} is visible in view port on page in {parent}"
 
   assert_visible_with_duration:
-    1: "Verify that {element} {name} will be shown during next {sec} seconds"
-    2: "Verify that {element} {name} will be shown during next {sec} seconds in {parent}"
+    1: "Assert that {element} {name} will be visible during next {sec} seconds"
+    2: "Assert that {element} {name} will be visible during next {sec} seconds in {parent}"
 
   assert_has_css_class:
-    1: "Verify {element} {name} has CSS class {clazz}"
-    2: "Verify {element} {name} has CSS class {clazz} in {parent}"
+    1: "Assert {element} {name} has CSS class {clazz}s"
+    2: "Assert {element} {name} has CSS class {clazz} in {parent}"
 
   assert_has_not_css_class:
-    1: "Verify {element} {name} has not CSS class {clazz}"
-    2: "Verify {element} {name} has not CSS class {clazz} in {parent}"
+    1: "Assert {element} {name} has not CSS class {clazz}"
+    2: "Assert {element} {name} has not CSS class {clazz} in {parent}"
+
+  assert_has_css_class_during_time:
+    1: "Assert {element} {name} has CSS class {clazz} during {seconds} seconds"
+    2: "Assert {element} {name} has CSS class {clazz} in {parent} during {seconds} seconds"
+
+  assert_has_not_css_class_during_time:
+    1: "Assert {element} {name} has not CSS class {clazz} during {seconds} seconds"
+    2: "Assert {element} {name} has not CSS class {clazz} in {parent} during {seconds} seconds"
+
+  assert_size:
+    1: "Assert list {element} size is {size}"
+    2: "Assert list {element} size is {size} in {parent}"
+
+  assert_size_greater_then:
+    1: "Assert list {element} size is greater then {size}"
+    2: "Assert list {element} size is greater then {size} in {parent}"
+
+  assert_size_greater_then_or_equal:
+    1: "Assert list {element} size is greater or equal then {size}"
+    2: "Assert list {element} size is greater or equal then {size} in {parent}"
+
+  assert_size_less_then:
+    1: "Assert list {element} size is less then {size}"
+    2: "Assert list {element} size is less then {size} in {parent}"
+
 
 
 
@@ -88,6 +161,10 @@ russian:
     1: "Прокручиваем к элементу {element} {name}"
     2: "Прокручиваем к элементу {element} {name} в виджете {parent}"
 
+  scroll_into_view:
+    1: "Прокручиваем вьюпорт до элемента {element} {name}"
+    2: "Прокручиваем вьюпорт до элемента {element} {name} в виджете {parent}"
+
   write:
     1: "Вводим текст {text} в поле ввода {name}"
     2: "Вводим текст {text} в поле ввода {name} в виджете {parent}"
@@ -97,20 +174,64 @@ russian:
     2: "Очищаем поле ввода {name} в виджете {parent}"
 
   text_field_press_enter:
-    1: "Press key ENTER in text field {name} input field"
-    2: "Press key ENTER in text field {name} input field in widget {parent}"
+    1: "Нажимаем ENTER в текстовом поле {name}"
+    2: "Нажимаем ENTER в текстовом поле {name} в {parent}"
+
+  text_field_assert_blank:
+    1: "Проверяем, что поле ввода {name} пустое"
+    2: "Проверяем, что поле ввода {name} пустое в виджете {parent}"
+
+  text_field_assert_value:
+    1: "Проверяем что в поле {element} выбрана опция {option}"
+    2: "Проверяем что в поле {element} выбрана опция {option} в {parent}"
+
+  dropdown_extend:
+    1: "Разворачиваем список {parent}"
+    2: "Разворачиваем список {parent} в {parent}"
 
   dropdown_select:
-    1: "Выбираем опцию {name} в выпадающем списке {element}"
-    2: "Выбираем опцию {name} в выпадающем списке {element} в виджете {parent}"
+    1: "Выбираем опцию {option} в выпадающем списке {element}"
+    2: "Выбираем опцию {option} в выпадающем списке {element} в виджете {parent}"
 
-  assert_text:
+  dropdown_select_first:
+    1: "Выбираем первую опцию в списке {element}"
+    2: "Выбираем первую опцию в списке {element} в {parent}"
+
+  dropdown_select_last:
+    1: "Выбираем последнюю опцию в списке {element}"
+    2: "Выбираем последнюю опцию в списке {element} в {parent}"
+
+  dropdown_select_any:
+    1: "Выбираем любую опцию в списке {element}"
+    2: "Выбираем любую опцию в списке {element} в {parent}"
+
+  dropdown_select_not:
+    1: "Выбираем любую опцию кроме {option} в списке {element}"
+    2: "Выбираем любую опцию кроме {option} в списке {element} в {parent}"
+
+  dropdown_assert_selected_value:
+    1: "Проверяем, что в списке {element} выбрано значение {option}"
+    2: "Проверяем, что в списке {element} выбрано значение {option} в {parent}"
+
+  dropdown_assert_selected_value_not:
+    1: "Проверяем, что в списке {element} выбрано значение не {option}"
+    2: "Проверяем, что в списке {element} выбрано значение не {option} в {parent}"
+
+  dropdown_assert_option_exist:
+    1: "Проверкм что опция {option} присутствует в списке {element}"
+    2: "Проверкм что опция {option} присутствует в списке {element} в {parent}"
+
+  assert_has_text:
     1: "Проверяем '{element} {name}' на наличие текста: {text}"
     2: "Проверяем '{element} {name}' на наличие текста: {text} в виджете {parent}"
 
   assert_exist:
     1: "Проверяем что '{element} {name}' присутствует на странице"
     2: "Проверяем что '{element} {name}' присутствует на странице в виджете {parent}"
+
+  assert_not_exist:
+    1: "Проверяем что '{element} {name}' присутствует отсутствует на странице"
+    2: "Проверяем что '{element} {name}' присутствует отсутствует на странице в виджете {parent}"
 
   assert_value:
     1: "Проверяем '{element} {name}' содержит значение: {text}"
@@ -129,8 +250,8 @@ russian:
     2: "Проверяем, что '{element} {name}' отображается в видимой части страницы в виджете {parent}"
 
   assert_visible_with_duration:
-    1: "Проверяем, что {element} {name} отобразится на странице в течение {sec} секунд"
-    2: "Проверяем, что {element} {name} отобразится на странице в течение {sec} секунд в виджете {parent}"
+    1: "Проверяем, что {element} {name} отображается на странице в течение {sec} секунд"
+    2: "Проверяем, что {element} {name} отображается на странице в течение {sec} секунд в виджете {parent}"
 
   assert_has_css_class:
     1: "Проверяем, что {element} {name} имеет CSS класс {clazz}"
@@ -139,3 +260,27 @@ russian:
   assert_has_not_css_class:
     1: "Проверяем, что {element} {name} не имеет CSS класс {clazz}"
     2: "Проверяем, что {element} {name} не имеет CSS класс {clazz} в виджете {parent}"
+
+  assert_has_css_class_during_time:
+    1: "Проверяем, что {element} {name} имеет CSS класс {clazz} в течение {sec} секунд"
+    2: "Проверяем, что {element} {name} имеет CSS класс {clazz} в виджете {parent} в течение {sec} секунд"
+
+  assert_has_not_css_class_during_time:
+    1: "Проверяем, что {element} {name} не имеет CSS класс {clazz} в течении {seconds} секунд"
+    2: "Проверяем, что {element} {name} не имеет CSS класс {clazz} в виджете {parent}  в течении {seconds} секунд"
+
+  assert_size:
+    1:
+    2:
+
+  assert_size_greater_then:
+    1:
+    2:
+
+  assert_size_greater_then_or_equal:
+    1:
+    2:
+
+  assert_size_less_then:
+    1:
+    2:
